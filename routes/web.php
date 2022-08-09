@@ -45,6 +45,11 @@ Route::prefix('dashboard/admin')->middleware('auth:admin')->group(function () {
     Route::resource('/category-milestones', CategoryMilestoneController::class);
     Route::resource('/type-milestones', MilestoneTypeController::class);
 
+    Route::get('/admins/getdata', [App\Http\Controllers\AdminController::class, 'getdata'])->name('admins.getdata');
+    // Route::get('/login', [AuthController::class, 'index'])->name('login');
+
+
+
     Route::resource('/books', BookController::class);
     Route::resource('/videos', VideoController::class);
     Route::resource('/admins', AdminController::class);

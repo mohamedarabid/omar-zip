@@ -75,7 +75,7 @@ class AdminController extends Controller
         // }
     }
 
-    public function getData(Request $request)
+    public function getdata(Request $request)
     {
         $columns = array(
             array('db' => 'id', 'dt' => 0),
@@ -107,36 +107,42 @@ class AdminController extends Controller
         $value = array();
 
 
-        $role = Role::where('name', 'Admin')->first();
-        if ($role != null) {
-            $modelHasRoles = ModelHasRole::where('role_id', $role->id)->get();
+        // $role = Role::where('name', 'Admin')->first();
+        // if ($role != null) {
+        //     $modelHasRoles = ModelHasRole::where('role_id', $role->id)->get();
 
-            // $admins = Admin::where('id', '!=', Auth::user()->id);
-            foreach ($modelHasRoles as $modelHasRole) {
-                if (Auth::user()->id == $modelHasRole->model_id) {
-                    if ($request->get('search')) {
-                        $admins = Admin::where('email', 'like', '%' . $request->search . '%');
-                    }
-                    if ($request->get('Status') != '') {
-                        $admins = Admin::where('status', $request->get('Status'));
-                    }
-                } else {
-                    $admins = Admin::where('id', '!=', Auth::user()->id);
-                    if ($request->get('search')) {
-                        $admins = $admins->where('email', 'like', '%' . $request->search . '%');
-                    }
-                    if ($request->get('Status') != '') {
-                        $admins = $admins->where('status', $request->get('Status'));
-                    }
-                }
-            }
-        }
+        //     // $admins = Admin::where('id', '!=', Auth::user()->id);
+        //     foreach ($modelHasRoles as $modelHasRole) {
+        //         if (Auth::user()->id == $modelHasRole->model_id) {
+        //             if ($request->get('search')) {
+        //                 $admins = Admin::where('email', 'like', '%' . $request->search . '%');
+        //             }
+        //             if ($request->get('Status') != '') {
+        //                 $admins = Admin::where('status', $request->get('Status'));
+        //             }
+        //         } else {
+        //             $admins = Admin::where('id', '!=', Auth::user()->id);
+        //             if ($request->get('search')) {
+        //                 $admins = $admins->where('email', 'like', '%' . $request->search . '%');
+        //             }
+        //             if ($request->get('Status') != '') {
+        //                 $admins = $admins->where('status', $request->get('Status'));
+        //             }
+        //         }
+        //     }
+        // }
+
+        $admins = Admin::all();
+
+        // dd($admins);
+
+        $count = count($admins);
     
         Admin::$counter = $start;
         foreach ($admins as $index => $item) {
             array_push(
                 $value,
-                $item->course_display_data
+                $item->admin_display_data
             );
         }
 
